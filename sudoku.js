@@ -193,7 +193,7 @@ function setTable(a) {
       if (a[i][j] !== 0) {
         table[i][j].innerHTML = a[i][j];
       } else {
-        table[i][j].innerHTML = '<input type="text" maxlength="1" onchange="onInput(i, j);"/>';
+        table[i][j].innerHTML = '<input type="text" maxlength="1" onchange="onInput(' + i + ',' + j + ');"/>';
       }
     }
   }
