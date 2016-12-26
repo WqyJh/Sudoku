@@ -264,6 +264,7 @@ function change() {
 // 查看答案
 function showAnswer() {
   setTable(answer);
+  endTimer();
 }
 // 处理输入
 function onInput(i, j) {
@@ -287,16 +288,18 @@ function onInput(i, j) {
 
 
 var timeStart;
-var timeNow;
 var countTime = false;
 var timeArea;
 var count = 0;
+var timerId = -1;
 
 function startTimer() {
   timeStart = new Date();
   countTime = true;
   count = 0;
-  setTimeout(timer, 1000);
+  timeArea.innerHTML =  "00 : 00 : 00";
+  timerId = setTimeout(timer, 1000);
+  console.log(timerId);
 }
 
 function timer() {
@@ -306,7 +309,7 @@ function timer() {
   var s = pad(parseInt(count % 60));
   timeArea.innerHTML = h + " : " + m + " : " + s;
   if (countTime) {
-    setTimeout(timer, 1000);
+    timerId = setTimeout(timer, 1000);
   }
 }
 
@@ -319,9 +322,12 @@ function pad(i) {
 
 function endTimer() {
   countTime = false;
+  clearTimeout(timerId);
+  console.log(timerId);
 }
 
 function gameStart() {
+  endTimer();
   change();
   startTimer();
 }
@@ -330,7 +336,7 @@ function gameOver() {
   endTimer();
   var restart = confirm('Congratulations! You have finished this sudoku, click OK to start a new Game');
   if(restart) {
-    change();
+    gameStart();
   }
 }
 
